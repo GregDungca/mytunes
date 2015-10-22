@@ -5,16 +5,16 @@ var SongQueueView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
-    this.model.on('change', renderSongQueueEntry );//
+    this.model.on('add', function(song) {
+      console.log('push to song queue was detected!');
+      this.renderSongQueueEntry(song); 
+    }, this);
+    this.model.on('remove', function(song) {
+      //remove the selected song from the DOM 
+    }, this);
   },
 
-  events: {
-    'enqueue' : function (event) {
-      console.log('enqueue detected');
-      this.renderSongQueueEntry();
-    }
-
-  },
+  
 
   render: function() {
     //this.$el.children().detach();
@@ -29,9 +29,12 @@ var SongQueueView = Backbone.View.extend({
     return this.$el;
   },
 
-  renderSongQueueEntry: function () {
+  renderSongQueueEntry: function (song) {
     console.log('entered render song queue entry');
-    //this.$el.append(new SongQueueEntryView({}));// TO DO
+    var songQueueEntryView = new SongQueueEntryView({model: song});
+    this.$el.append(songQueueEntryView.render(song));
+    return this.$el;
+
   }
 
 });
