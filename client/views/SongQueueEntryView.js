@@ -8,16 +8,17 @@ var SongQueueEntryView = Backbone.View.extend({
     'click': function() {
       console.log('SongQueueEntryView sensed the click!');
       this.model.dequeue();
-      this.remove();
-    },
-    // 'remove': function() {
-    //   console.log('SongQueueEntryView heard you!');
-    // }
+    }
   },
 
   template: _.template('<td>(<%= artist %>)</td><td><%= title %></td>'),
 
   initialize: function() {
+    this.model.on('remove', function(song) {
+      //remove the selected song from the DOM
+      console.log('SongQueueEntryView hears you!');
+      this.remove();
+    }, this);
 
   },
 

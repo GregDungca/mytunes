@@ -9,9 +9,6 @@ var SongQueueView = Backbone.View.extend({
       console.log('push to song queue was detected!');
       this.renderSongQueueEntry(song); 
     }, this);
-    this.model.on('remove', function(song) {
-      //remove the selected song from the DOM 
-    }, this);
   },
 
   

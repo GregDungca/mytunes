@@ -13,7 +13,14 @@ var AppModel = Backbone.Model.extend({
       console.log('enqueue event handler');
       // Add the song to the song queue
       this.get('songQueue').push(song);
+
       //this.trigger('pushed', this);
+
+    params.library.on('end', function(song) {
+      console.log('ended event handler');
+      this.get('songQueue').remove(song);
+    }, this);
+
 
     }, this);
 
