@@ -18,7 +18,12 @@ var AppModel = Backbone.Model.extend({
 
     params.library.on('end', function(song) {
       console.log('ended event handler');
+      //debugger;
       this.get('songQueue').remove(song);
+      if ( this.get('songQueue').at(0) ) {
+        this.set('currentSong', this.get('songQueue').at(0)); //set currentSong to be next song in the queue
+        this.get('currentSong').play();
+      }
     }, this);
 
 
